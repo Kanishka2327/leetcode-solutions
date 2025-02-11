@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            // Slow pointer jumps one step once;
+            slow = nums[slow];
+            // fast pointer jumps 2 steps once;
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+        // Rest the position of slow pointer;
+        slow = nums[0];
+        // when slow and fast pointer meets again they are at the circle point, which is the duplicate number.
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
+    }
+};
