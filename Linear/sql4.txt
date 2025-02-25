@@ -1,0 +1,9 @@
+# Write your MySQL query statement below
+with cte as(
+select * FROM Products where change_date<='2019-08-16'
+),cte1 as(
+select product_id,new_price,ROW_NUMBER()OVER(PARTITION BY product_id ORDER BY change_date DESC) as r1 FROM cte
+)
+select product_id,new_price as price FROM cte1 where r1=1
+UNION
+select product_id,10 FROM Products where product_id NOT IN (select product_id FROM cte);
