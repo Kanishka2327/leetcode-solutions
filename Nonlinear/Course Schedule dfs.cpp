@@ -1,39 +1,39 @@
 class Solution {
 public:
-    bool DFS(vector<vector<int>>& adj, int u,vector<bool> &visited ,vector<bool> &currvisited){
+    bool isCycledfs(unordered_map<int, vector<int>> &adj, int u , vector<bool>& visited, vector<int>& inRecur){
         visited[u] = true;
-        currvisited[u] = true;// Mark the node as being in the current DFS stack
+        inRecur[u] = true;
 
-        for(auto & v : adj[u]){ //traverse all neighbors 
-            if(!visited[v]){ //if neighbor not visited
-                if(DFS(adj , v , visited , currvisited)){ //recursive dfs calls 
-                    return true; //cycle detected
-                }
-            }else if(visited[v] && currvisited[v]){ //neighbor is in curr recursive stack
-                return true; //cycle detected
-            }
+    for(int &v : adj[u]){
+        if(!visited[v] && isCycledfs(adj , v , visited , inRecur)){
+            return true;
         }
-        currvisited[u] = false; //backtrack recursion remove node 
-        return false; //no cycle found
+        else if(inRecur[v]== true){
+            return true;
+        }
     }
+    inRecur[u] = false;
+    return false;
+
+    }
+
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
-        vector<bool> visited(numCourses , false), currvisited(numCourses , false);
-//we are making an adj list from this for loop
-        for(auto &v : prerequisites){
+        unordered_map<int, vector<int>> adj;
+        vector<bool> visited(numCourses, false);
+        vector<int> inRecur(numCourses, false);
+
+        for(auto &v: prerequisites){
             int a = v[0];
             int b = v[1];
-            
-            adj[b].push_back(a);    
-        }
+            adj[b].push_back(a);
 
-        for(int i =0 ; i <numCourses  ;i++){
-            if(!visited[i]){
-                if(DFS(adj ,i, visited, currvisited)){ 
-                    return false;//if cycle return false
-                }
-            }
         }
-        return true; //no cycle 
+        for(int i =0; i< numCourses ;i++){
+            if(!visited[i] && isCycledfs(adj , i , visited, inRecur)){
+                return false; // cycle is detected 
+            }
+
+        }
+        return true; // cycle not detected
     }
 };
