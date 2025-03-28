@@ -1,0 +1,17 @@
+/**
+ * @param {number[]} nums
+ * @param {Function} fn
+ * @param {number} init
+ * @return {number}
+ */
+var reduce = function (nums, fn, init) {
+    let output = 0;
+    output = nums.reduce((accum, curr) => fn(accum, curr), init)
+    return output;
+};
+const nums = [1, 2, 3, 4];
+const sum = (accum, curr) => {
+    return accum + curr
+}
+reduce(nums, sum, 0);
+
