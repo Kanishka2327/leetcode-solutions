@@ -17,7 +17,7 @@ public:
         
         int circularsum = totalsum - minsum;
 
-        if(minsum ==  totalsum){ //edge case where all elements are neg return the maximum sum
+        if(minsum ==  totalsum){ 
             return maxsum;
         }
         return max(maxsum , circularsum);
