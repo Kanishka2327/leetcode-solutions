@@ -18,7 +18,7 @@ public:
                 }
             }
             else
-            num.push(stoi(x)); //converts string to int value
+            num.push(stoi(x)); 
         }
         return num.top();
     }
