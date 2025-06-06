@@ -28,6 +28,7 @@ void bfs( vector<vector<int>>& isConnected, int u ,vector<bool> &visited ){
                 count++;
             }
         }
+
         return count;
     }
 };
