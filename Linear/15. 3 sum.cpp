@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<int>> ans; //Triplet store
+        vector<vector<int>> ans;
         sort(nums.begin(), nums.end()); //sort whole array
 
         for(int i =0; i < n;i++){
